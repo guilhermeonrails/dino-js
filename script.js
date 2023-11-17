@@ -1,56 +1,55 @@
-var chaoImg
-var posicaoXChao = 0
-var backgroundImg
-var posicaoXBackground = 0
-var dinoImgs = []
-var dinoImgAtual = 0
+var imgChao;
+var posicaoChaoX = 0;
+var imgFundo;
+var posicaoFundoX = 0;
+var imgsDino = [];
+var imgDinoAtual = 0;
 
 function preload() {
-    chaoImg = loadImage('assets/floor.png')
-    backgroundImg = loadImage('assets/bg.jpeg')
+    imgChao = loadImage('assets/chao.png');
+    imgFundo = loadImage('assets/bg.jpeg');
     for (var i = 1; i <= 8; i++) {
-        dinoImgs.push(loadImage(`assets/dino/${i}.png`))
+        imgsDino.push(loadImage(`assets/dino/${i}.png`));
     }
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight)
+    createCanvas(windowWidth, windowHeight);
+    inicioPuloY = windowHeight * 0.57;
 }
 
 function draw() {
-    movaBackground()
-    moverChao()
-    animarDino()
+    moverFundo();
+    moverChao();
+    animarDino();
 }
 
 function animarDino() {
-    image(dinoImgs[dinoImgAtual], windowWidth/10, windowHeight *0.7, windowWidth * 0.25, windowWidth * 0.25)
+    image(imgsDino[imgDinoAtual], windowWidth * 0.1, windowHeight * 0.57, windowHeight * 0.32, windowHeight * 0.3);
 
     if (frameCount % 6 === 0) {
-        dinoImgAtual = (dinoImgAtual + 1) % dinoImgs.length
+        imgDinoAtual = (imgDinoAtual + 1) % imgsDino.length;
     }
 }
-
 
 function moverChao() {
-    image(chaoImg, posicaoXChao,         0, windowWidth, windowHeight)
-    image(chaoImg, posicaoXChao + width, 0, windowWidth, windowHeight)
+    image(imgChao, posicaoChaoX, 0, windowWidth, windowHeight);
+    image(imgChao, posicaoChaoX + width, 0, windowWidth, windowHeight);
 
-    posicaoXChao -= 5
-    if (posicaoXChao < -width) {
-        posicaoXChao = 0
+    posicaoChaoX -= 5;
+    if (posicaoChaoX < -width) {
+        posicaoChaoX = 0;
     }
 }
 
-function movaBackground() {
-    var posY = (windowHeight / 6 ) * -1
-    image(backgroundImg, posicaoXBackground, posY, windowWidth, windowHeight )
-    image(backgroundImg, posicaoXBackground + width, posY, windowWidth, windowHeight )
+function moverFundo() {
+    var posY = (windowHeight / 6 ) * -1;
+    image(imgFundo, posicaoFundoX, posY, windowWidth, windowHeight);
+    image(imgFundo, posicaoFundoX + width, posY, windowWidth, windowHeight);
 
-    // posicaoXBackground = posicaoXBackground - 2
-    posicaoXBackground -= 0.5
+    posicaoFundoX -= 0.5;
 
-    if (posicaoXBackground < -width) {
-        posicaoXBackground = 0
+    if (posicaoFundoX < -width) {
+        posicaoFundoX = 0;
     }
 }
